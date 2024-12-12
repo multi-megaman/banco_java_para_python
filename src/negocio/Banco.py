@@ -14,7 +14,6 @@ from src.exceptions.ContaNaoEncontradaException import ContaNaoEncontradaExcepti
 from src.exceptions.RenderBonusContaEspecialException import RenderBonusContaEspecialException
 from src.exceptions.ValorInvalidoException import ValorInvalidoException
 
-
 class Banco:
 
     instance = None
@@ -28,6 +27,17 @@ class Banco:
         if cls.instance is None:
             cls.instance = Banco(RepositorioClientesArquivoDB, RepositorioContasArquivoDB)
         return cls.instance
+    
+    #metodo privado
+    def __contaJaAssociada(self, numero: str):
+        citerador = self.clientes.getIterator()
+        for cliente in citerador:
+            contas = cliente.get_contas()
+            if numero in contas:
+                return True
+            
+        return False
+                
 
     def cadastrar_cliente(self, cliente: Cliente):
         if not self.clientes.inserir(cliente):
@@ -44,32 +54,53 @@ class Banco:
         return self.contas.procurar(numero)
 
     def associar_conta(self, cpf: str, numero_conta: str):
+        conta: ContaAbstrata = self.procurar_conta(numero_conta)
+        
+        # if conta is None:
+        #     raise ContaNaoEncontradaException()
+        
+        #procura se o cliente existe
         cliente = self.procurar_cliente(cpf)
-        if cliente:
-            conta = self.procurar_conta(numero_conta)
-            if conta is None:
-                cliente.adicionar_conta(numero_conta)
-                self.clientes.atualizar(cliente)
-            else:
-                raise ContaJaAssociadaException()
-        else:
+        if cliente is None:
             raise ClienteNaoCadastradoException()
+        
+        # verifica se conta já está associada com algum cliente
+        # if (self.__contaJaAssociada(conta.getNumero())):
+        if (self.__contaJaAssociada(numero_conta)):
+            raise ContaJaAssociadaException()
+        
+        #associa a conta ao cliente
+        cliente.adicionar_conta(numero_conta)
+        #atualiza o cliente no rep
+        self.clientes.atualizar(cliente)
 
     def remover_cliente(self, cpf: str):
             cliente = self.procurar_cliente(cpf)
-            i = 0
-            while cliente.contas:
-                numero_conta = cliente.consultar_numero_conta(i)
-                i += 1
-                self.remover_conta(cliente, numero_conta)
-            if not self.clientes.remover(cpf):
+            
+            if cliente is None:
                 raise ClienteNaoCadastradoException()
+            
+            #remove as contas associadas ao cliente
+            for numConta in cliente.get_contas():
+                self.remover_conta(cliente, numConta)
+                
+            #remove o cliente do repositorio
+            self.clientes.remover(cpf)
 
     def remover_conta(self, cliente: Cliente, numero_conta: str):
+        if self.procurar_cliente(cliente.getCpf()) == None:
+            raise ClienteNaoCadastradoException()
+        
+        if self.procurar_conta(numero_conta) == None:
+            raise ContaNaoEncontradaException()
+        
         cliente.remover_conta(numero_conta)
         if not self.contas.remover(numero_conta):
             raise ContaNaoEncontradaException()
+        
+        cliente.remover_conta(numero_conta)
         self.clientes.atualizar(cliente)
+        self.contas.remover(numero_conta)
 
     def creditar(self, conta: ContaAbstrata, valor: float):
         if valor < 0:

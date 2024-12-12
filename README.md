@@ -17,6 +17,7 @@ $ pip install -e .
 
 Com isso o projeto já deve estar completamente funcional. Para testar e utilizar o sistema bancário, basta rodar o arquivo "app.py" na raiz do projeto e uma interface deve ser exibida:
 
+
 ```bash
 $ python app.py
 ```
@@ -43,4 +44,18 @@ test_conta_saldo_inicial_negativo (__main__.test_conta_saldo_inicial_negativo.te
 Ran 4 tests in 0.001s
 
 OK
+```
+
+Erros e problemas comuns:
+
+Em linux, pode ocorrer de surgir um problema relacionado ao "Tkinter". Muito provavelmente significa que o Tkinter não está devidamente instalado no linux.
+
+```bash
+$ sudo apt-get install python3-tk
+```
+
+se esse comando não funcionar, tente o comando abaixo:
+
+```bash
+sudo apt install build-essential libbz2-dev libssl-dev zlib1g-dev libffi-dev libreadline-dev libsqlite3-dev tk-dev -y
 ```

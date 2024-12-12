@@ -111,4 +111,7 @@ class RepositorioClientesArquivoDB(IRepositorioClientes):
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM clientes")
             rows = cursor.fetchall()
-            return [{'cpf': row[0], 'nome': row[1], 'contas': json.loads(row[2])} for row in rows]
+            return [Cliente(row[1], row[0]) for row in rows]
+        
+    def getIterator(self):
+        return self.listar_clientes()
