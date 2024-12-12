@@ -88,5 +88,5 @@ class AtualizarClienteFrame(tk.Tk):
 #     from src.dados.RepositorioContasArquivoDB import RepositorioContasArquivoDB
 
 #     banco = Banco(RepositorioClientesArquivoDB(), RepositorioContasArquivoDB())
-#     app = AtualizarClienteFrame(banco)
+#     app = AtualizarClienteFrame(banco, None)
 #     app.mainloop()

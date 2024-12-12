@@ -121,5 +121,5 @@ class AssociarContaFrame(tk.Tk):
 #     from src.dados.RepositorioClientesArquivoDB import RepositorioClientesArquivoDB
 #     from src.dados.RepositorioContasArquivoDB import RepositorioContasArquivoDB
 #     banco = Banco(RepositorioClientesArquivoDB(), RepositorioContasArquivoDB())
-#     app = AssociarContaFrame(banco)
+#     app = AssociarContaFrame(banco, None)
 #     app.mainloop()

@@ -137,5 +137,5 @@ class ClienteMenuFrame(tk.Tk):
 #     from src.dados.RepositorioContasArquivoDB import RepositorioContasArquivoDB
 
 #     banco = Banco(RepositorioClientesArquivoDB(), RepositorioContasArquivoDB())
-#     app = ClienteMenuFrame(banco)
+#     app = ClienteMenuFrame(banco, None)
 #     app.mainloop()

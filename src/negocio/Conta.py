@@ -14,7 +14,6 @@ class Conta(ContaAbstrata):
     def debitar(self, valor: float):
         if self.getSaldo() < valor:
             raise SaldoInsuficienteException(self.getNumero(), self.getSaldo())
-        print("CONTA NORMAL DEBITOU R$", valor)
         self.setSaldo(self.getSaldo() - valor)
 
     #METODO ADICIONAL

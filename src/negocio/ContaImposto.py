@@ -34,7 +34,6 @@ class ContaImposto(ContaAbstrata):
         total = valor + imposto
 
         # Debita o total do saldo
-        print("CONTA IMPOSTO DEBITOU R$", total)
         self.setSaldo(self.getSaldo() - total)
 
     #METODO ADICIONAL
