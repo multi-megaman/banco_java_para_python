@@ -89,8 +89,8 @@ class AssociarContaFrame(tk.Tk):
             self.tipo_conta.setNumero(numero_conta)
             self.tipo_conta.setSaldo(0)
 
-            self.banco.associar_conta(cpf, numero_conta)
             self.banco.cadastrar_conta(self.tipo_conta)
+            self.banco.associar_conta(cpf, numero_conta)
 
             messagebox.showinfo("Sucesso", "Conta associada ao cliente com sucesso!")
             self.esvaziar_campos()

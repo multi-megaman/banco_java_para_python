@@ -54,7 +54,7 @@ Em linux, pode ocorrer de surgir um problema relacionado ao "Tkinter". Muito pro
 $ sudo apt-get install python3-tk
 ```
 
-se esse comando não funcionar, tente o comando abaixo:
+se esse comando não funcionar, tente o comando abaixo  (créditos: plmorais):
 
 ```bash
 sudo apt install build-essential libbz2-dev libssl-dev zlib1g-dev libffi-dev libreadline-dev libsqlite3-dev tk-dev -y

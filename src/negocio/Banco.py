@@ -29,11 +29,11 @@ class Banco:
         return cls.instance
     
     #metodo privado
-    def __contaJaAssociada(self, numero: str):
+    def __contaJaAssociadaOutroCliente(self, numero: str, cpf: str) -> bool:
         citerador = self.clientes.getIterator()
         for cliente in citerador:
             contas = cliente.get_contas()
-            if numero in contas:
+            if numero in contas and cliente.getCpf() != cpf:
                 return True
             
         return False
@@ -56,8 +56,8 @@ class Banco:
     def associar_conta(self, cpf: str, numero_conta: str):
         conta: ContaAbstrata = self.procurar_conta(numero_conta)
         
-        # if conta is None:
-        #     raise ContaNaoEncontradaException()
+        if conta is None:
+            raise ContaNaoEncontradaException()
         
         #procura se o cliente existe
         cliente = self.procurar_cliente(cpf)
@@ -65,8 +65,8 @@ class Banco:
             raise ClienteNaoCadastradoException()
         
         # verifica se conta já está associada com algum cliente
-        # if (self.__contaJaAssociada(conta.getNumero())):
-        if (self.__contaJaAssociada(numero_conta)):
+        if (self.__contaJaAssociadaOutroCliente(conta.getNumero(), cpf)):
+        # if (self.__contaJaAssociada(numero_conta)):
             raise ContaJaAssociadaException()
         
         #associa a conta ao cliente
