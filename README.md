@@ -17,7 +17,7 @@ $ pip install -e .
 ```
 
 
-Com isso o projeto já deve estar completamente funcional. Para testar e utilizar o sistema bancário, basta rodar o arquivo "app.py" na raiz do projeto e uma interface deve ser exibida:
+Com isso, o projeto já deve estar completamente funcional. Para testar e utilizar o sistema bancário, basta rodar o arquivo "app.py" na raiz do projeto e uma interface deve ser exibida:
 
 
 ```bash
@@ -34,7 +34,7 @@ Exemplo de teste unitário da classe conta rodando pelo terminal:
 $ python test/conta_test.py
 ```
 
-o retorno no proprio terminal deve ser algo do tipo:
+o retorno no próprio terminal deve ser algo do tipo:
 
 ```bash
 test_conta_debito (__main__.test_conta_debito.test_conta_debito) ... ok
@@ -89,7 +89,7 @@ python -m coverage run --branch ./test/conta_imposto_test.py
 python -m coverage html
 ```
 
-Com isso, o html deve incluir as porcentágens de cobertura de branches.
+Com isso, o html deve incluir as porcentagens de cobertura de branches.
 
 
 
