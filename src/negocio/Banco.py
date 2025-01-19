@@ -88,7 +88,7 @@ class Banco:
             self.clientes.remover(cpf)
 
     def remover_conta(self, cliente: Cliente, numero_conta: str):
-        if self.procurar_cliente(cliente.getCpf()) == None:
+        if self.procurar_cliente(cliente.get_cpf()) == None:
             raise ClienteNaoCadastradoException()
         
         if self.procurar_conta(numero_conta) == None:
