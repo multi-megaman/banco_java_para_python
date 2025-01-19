@@ -4,7 +4,7 @@ from src.negocio.Cliente import Cliente
 from src.negocio.ContaAbstrata import ContaAbstrata
 from src.negocio.ContaEspecial import ContaEspecial
 from src.negocio.ContaPoupanca import ContaPoupanca
-from src.exceptions import RenderJurosPoupancaException
+from src.exceptions.RenderJurosPoupancaException import RenderJurosPoupancaException
 from src.exceptions.AtualizacaoNaoRealizadaException import AtualizacaoNaoRealizadaException
 from src.exceptions.ClienteJaCadastradoException import ClienteJaCadastradoException
 from src.exceptions.ClienteNaoCadastradoException import ClienteNaoCadastradoException
@@ -129,7 +129,7 @@ class Banco:
     def render_bonus(self, conta: ContaAbstrata):
         if isinstance(conta, ContaEspecial):
             if self.contas.existe(conta.getNumero()):
-                conta.render_bonus()
+                conta.renderbonus()
                 self.contas.atualizar(conta)
             else:
                 raise ContaNaoEncontradaException()
