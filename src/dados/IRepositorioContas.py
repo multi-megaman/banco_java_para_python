@@ -5,9 +5,6 @@ from src.negocio.ContaAbstrata import ContaAbstrata
 from abc import ABC, abstractmethod
 
 class IRepositorioContas(ABC):
-    @abstractmethod
-    def _connect(self):
-        pass
 
     def inserir(self, conta: ContaAbstrata) -> bool:
         pass
