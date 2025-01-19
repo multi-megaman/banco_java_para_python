@@ -33,7 +33,7 @@ class Banco:
         citerador = self.clientes.getIterator()
         for cliente in citerador:
             contas = cliente.get_contas()
-            if numero in contas and cliente.getCpf() != cpf:
+            if numero in contas and cliente.get_cpf() != cpf:
                 return True
             
         return False
