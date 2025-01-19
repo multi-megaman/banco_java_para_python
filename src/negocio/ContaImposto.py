@@ -1,4 +1,4 @@
-from src.exceptions import SaldoInsuficienteException
+from src.exceptions.SaldoInsuficienteException import SaldoInsuficienteException
 from src.negocio.ContaAbstrata import ContaAbstrata
 
 
@@ -27,7 +27,7 @@ class ContaImposto(ContaAbstrata):
         :raises SaldoInsuficienteException: Se o saldo for insuficiente para o débito e o imposto.
         """
         if self.getSaldo() < valor:
-            raise SaldoInsuficienteException(f"Número da conta: {self.getNumero()}, Saldo atual: {self.getSaldo()}")
+            raise SaldoInsuficienteException(self.getNumero(), self.getSaldo())
 
         # Calcula o imposto e o valor total a debitar
         imposto = valor * self.CPMF
