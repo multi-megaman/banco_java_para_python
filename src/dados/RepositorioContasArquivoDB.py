@@ -25,7 +25,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                         tipo TEXT NOT NULL
                     )
                 """)
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao inicializar o banco de dados.", e)
 
     def _connect(self):
@@ -34,7 +34,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
         """
         try:
             return sqlite3.connect(self.db_path)
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao conectar ao banco de dados.", e)
 
     def inserir(self, conta: ContaAbstrata) -> bool:
@@ -52,7 +52,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                 """, (conta.getNumero(), conta.getSaldo(), conta.get_tipo()))
                 conn.commit()
             return True
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException(f"Erro ao inserir conta no banco de dados. {e}", e)
 
     def procurar(self, numero: str) -> ContaAbstrata:
@@ -78,7 +78,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                     else:
                         return Conta(row[0], row[1])
                 return None
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao procurar conta no banco de dados.", e)
 
     def remover(self, numero: str) -> bool:
@@ -93,7 +93,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                 cursor.execute("DELETE FROM contas WHERE numero = ?", (numero,))
                 conn.commit()
             return True
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao remover conta do banco de dados.", e)
 
     def atualizar(self, conta: ContaAbstrata) -> bool:
@@ -110,7 +110,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                 """, (conta.getSaldo(), conta.getNumero()))
                 conn.commit()
             return True
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao atualizar conta no banco de dados.", e)
 
     def existe(self, numero: str) -> bool:
@@ -125,7 +125,7 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                 cursor.execute("SELECT 1 FROM contas WHERE numero = ?", (numero,))
                 row = cursor.fetchone()
                 return row is not None
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao verificar existência de conta no banco de dados.", e)
 
     def get_iterator(self):
@@ -140,5 +140,5 @@ class RepositorioContasArquivoDB(IRepositorioContas):
                 rows = cursor.fetchall()
                 for row in rows:
                     yield {'numero': row[0], 'saldo': row[1]}
-        except sqlite3.Error as e:
+        except Exception as e:
             raise RepositorioException("Erro ao obter iterador de contas do banco de dados.", e)
